@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATLAS Project Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+    </script>
+    <style>
+        :root {
+            --primary: #1A237E;
+            --secondary: #1565C0;
+            --accent: #43A047;
+            --text-main: #1A237E;
+            --text-muted: #607D8B;
+            --bg-page: #F0F4FF;
+            --bg-card: #FFFFFF;
+            --border: #E8EAF6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-page);
+            line-height: 1.6;
+        }
+
+        /* --- Print Spacing & Page Breaks --- */
+        @media screen {
+            .page {
+                background: white;
+                max-width: 900px;
+                margin: 40px auto;
+                padding: 60px 80px;
+                box-shadow: 0 10px 40px rgba(26, 35, 126, 0.1);
+                border-radius: 8px;
+            }
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 20mm;
+            }
+            body {
+                background: white;
+            }
+            .page {
+                padding: 0;
+                margin: 0;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+
+        /* --- Components --- */
+        .cover {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-img {
+            width: 80%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        .meta-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .meta-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .meta-table td:first-child {
+            font-weight: 600;
+            width: 30%;
+            color: var(--secondary);
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin: 25px 0 15px;
+            color: var(--secondary);
+        }
+
+        p, li {
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+            color: #37474F;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .mermaid {
+            margin: 30px 0;
+            background: #FAFBFF;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        table.content-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        table.content-table th {
+            background: var(--primary);
+            color: white;
+            text-align: left;
+            padding: 14px 18px;
+            font-size: 0.95rem;
+        }
+
+        table.content-table td {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+
+        .alert {
+            padding: 20px;
+            border-radius: 12px;
+            background: #E8F5E9;
+            border-left: 6px solid #43A047;
+            margin: 20px 0;
+        }
+
+        .footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .print-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+            z-index: 1000;
+        }
+
+        .print-btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <button class="print-btn no-print" onclick="window.print()">Download as PDF</button>
+
+    <!-- PAGE 1: COVER -->
+    <div class="page cover">
+        <img src="atlas_report_hero_1776274473414.png" class="hero-img" alt="ATLAS Hero">
+        <h1>ATLAS</h1>
+        <p class="subtitle">Automated Task & Logistics Assignment System</p>
+        <div style="width: 100%; max-width: 500px;">
+            <table class="meta-table">
+                <tr><td>Platform</td><td>Android (Native)</td></tr>
+                <tr><td>Language</td><td>Kotlin</td></tr>
+                <tr><td>Framework</td><td>Jetpack Compose (Material 3)</td></tr>
+                <tr><td>Database</td><td>SQLite via Room</td></tr>
+                <tr><td>Architecture</td><td>MVVM (Clean)</td></tr>
+                <tr><td>Version</td><td>1.0</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- PAGE 2: INTRODUCTION -->
+    <div class="page page-break">
+        <h2>1. Introduction</h2>
+        <h3>1.1 Background</h3>
+        <p>Organizing large-scale events such as college fests, workshops, donation drives, and conferences is a complex undertaking. Event organizers must simultaneously manage multiple departments, coordinate volunteers, assign and track tasks, and monitor overall progress — all while ensuring nothing falls through the cracks.</p>
+        
+        <h3>1.2 Problem Statement</h3>
+        <p>Current event management approaches suffer from several critical shortcomings:</p>
+        <ul>
+            <li><strong>Fragmented Communication:</strong> Event data is scattered across multiple platforms (WhatsApp groups, Google Sheets, paper logs), making it difficult to maintain a single source of truth.</li>
+            <li><strong>Lack of Real-Time Visibility:</strong> Organizers have no centralized dashboard to view overall event progress, pending tasks, or department-level status at a glance.</li>
+            <li><strong>Manual Task Tracking:</strong> Task assignments are communicated informally, leading to ambiguity about responsibilities and deadlines.</li>
+            <li><strong>No Audit Trail:</strong> There is no systematic log of actions performed — who assigned what, when was it completed, and by whom.</li>
+        </ul>
+
+        <h3>1.3 Proposed Solution</h3>
+        <p><strong>ATLAS</strong> is a native Android application designed to serve as a comprehensive, all-in-one event management platform. It provides organizers and volunteers with a centralized system to create events, organize departments, onboard team members, assign and track tasks, and maintain a complete activity log.</p>
+    </div>
+
+    <!-- PAGE 3: OBJECTIVES & SCOPE -->
+    <div class="page page-break">
+        <h2>2. Objectives</h2>
+        <ol>
+            <li><strong>Centralized Event Management:</strong> Provide a single platform to create, view, and manage multiple events.</li>
+            <li><strong>Hierarchical Organization:</strong> Enable organizers to structure events into departments with custom identities.</li>
+            <li><strong>Task Assignment & Tracking:</strong> Allow creation of tasks with assignees, due dates, and priority levels.</li>
+            <li><strong>Volunteer Management:</strong> Support onboarding volunteers into specific departments with role designations.</li>
+            <li><strong>Activity Logging:</strong> Automatically record all significant actions with timestamps.</li>
+            <li><strong>Persistent Data Storage:</strong> Store all application data locally using SQLite via Room.</li>
+        </ol>
+
+        <h2>3. Scope of the Project</h2>
+        <h3>3.1 In Scope</h3>
+        <table class="content-table">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>User Authentication</td><td>Sign-up and login flow with roles (Organizer / Volunteer).</td></tr>
+                <tr><td>Event CRUD</td><td>Create events with name, date, venue, and volunteer count.</td></tr>
+                <tr><td>Department Mgmt</td><td>Create departments with custom emojis and colors.</td></tr>
+                <tr><td>Volunteer Onboarding</td><td>Add volunteers to departments with role assignments.</td></tr>
+                <tr><td>Task Management</td><td>Create tasks with assignees, due dates, and priority.</td></tr>
+                <tr><td>Progress Tracking</td><td>Real-time progress bars at event and department levels.</td></tr>
+                <tr><td>Activity Log</td><td>Timestamped, color-coded timeline of all actions.</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- PAGE 4: TECH STACK -->
+    <div class="page page-break">
+        <h2>4. Technology Stack & Tools</h2>
+        <h3>4.1 Core Technologies</h3>
+        <table class="content-table">
+            <thead>
+                <tr>
+                    <th>Technology</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Kotlin</strong></td><td>Primary programming language; modern, type-safe.</td></tr>
+                <tr><td><strong>Jetpack Compose</strong></td><td>Declarative UI framework for building native interfaces.</td></tr>
+                <tr><td><strong>Material 3</strong></td><td>Design system providing consistent UI components.</td></tr>
+                <tr><td><strong>Room Persistence</strong></td><td>Abstraction layer over SQLite for local data storage.</td></tr>
+                <tr><td><strong>Coroutines</strong></td><td>Asynchronous programming for database operations.</td></tr>
+            </tbody>
+        </table>
+
+        <h3>4.2 Key Libraries</h3>
+        <div class="alert">
+            <p>The project utilizes the Android Jetpack ecosystem, including <strong>Navigation Compose</strong> for screen routing, <strong>ViewModel</strong> for state management, and <strong>KSP</strong> for compile-time code generation.</p>
+        </div>
+    </div>
+
+    <!-- PAGE 5: ARCHITECTURE -->
+    <div class="page page-break">
+        <h2>5. System Architecture</h2>
+        <h3>5.1 Architectural Pattern — MVVM</h3>
+        <p>ATLAS follows the <strong>Model–View–ViewModel (MVVM)</strong> architecture recommended by Google, augmented with a <strong>Repository pattern</strong>.</p>
+        
+        <div class="mermaid">
+            graph TB
+                subgraph "Presentation Layer (View)"
+                    A["Compose Screens"]
+                    B["Reusable Components"]
+                end
+                
+                subgraph "State Management (ViewModel)"
+                    C["AtlasViewModel"]
+                end
+                
+                subgraph "Data Layer"
+                    D["AtlasRepository"]
+                    E["Room DAOs"]
+                    F["AtlasDatabase"]
+                end
+                
+                A --> C
+                B --> C
+                C --> D
+                D --> E
+                E --> F
+        </div>
+    </div>
+
+    <!-- PAGE 6: DATABASE DESIGN -->
+    <div class="page page-break">
+        <h2>6. Database Design</h2>
+        <h3>6.1 Entity-Relationship Overview</h3>
+        <p>The SQLite database contains 6 optimized entities designed for high-performance reading and storage.</p>
+        
+        <div class="mermaid">
+            erDiagram
+                USERS ||--o{ EVENTS : "manages"
+                EVENTS ||--o{ DEPARTMENTS : "has"
+                EVENTS ||--o{ VOLUNTEERS : "has"
+                EVENTS ||--o{ TASKS : "has"
+                DEPARTMENTS ||--o{ TASKS : "contains"
+                DEPARTMENTS ||--o{ VOLUNTEERS : "assigned to"
+        </div>
+
+        <h3>6.2 Data Access Objects</h3>
+        <p>Each entity has a corresponding DAO interface providing type-safe database operations. All DAO methods are <strong>suspend functions</strong>, ensuring database operations execute asynchronously without blocking the main thread.</p>
+    </div>
+
+    <!-- PAGE 7: MODULES -->
+    <div class="page page-break">
+        <h2>7. Module Descriptions</h2>
+        <h3>7.1 Authentication Module</h3>
+        <p>A multi-step flow that includes role selection and persistent profile creation. The design uses dynamic role-based color theming (Navy for Organizer, Green for Volunteer).</p>
+
+        <h3>7.2 Dashboard & Management</h3>
+        <p>The core hub of the application, featuring real-time statistics, search, and hierarchical filtering. It allows one-tap access to every detail of an event.</p>
+
+        <h3>7.3 Activity Log</h3>
+        <p>A comprehensive audit trail that records every mutation in the system. Entries are color-coded by priority and action type.</p>
+    </div>
+
+    <!-- PAGE 8: DESIGN & PERFORMANCE -->
+    <div class="page page-break">
+        <h2>8. UI/UX Design Philosophy</h2>
+        <p>The design focuses on <strong>"Premium Aesthetics"</strong>. Using custom gradient headers, glassmorphism elements, and smooth transitions, ATLAS feels like a flagship product.</p>
+
+        <h3>8.1 Performance Optimizations</h3>
+        <ul>
+            <li><strong>Lazy Loading:</strong> Lists are rendered efficiently using Compose LazyColumns.</li>
+            <li><strong>Thread Management:</strong> Room operations reside strictly on IO Dispatchers.</li>
+            <li><strong>State Hoisting:</strong> Clean state management prevents unnecessary recompositions.</li>
+        </ul>
+
+        <h2>9. Advantages</h2>
+        <p>1. <strong>Offline-First:</strong> works entirely without internet.</p>
+        <p>2. <strong>Modern Stack:</strong> Built with the latest Android technologies.</p>
+        <p>3. <strong>Scalable:</strong> Data model supports unlimited entities.</p>
+    </div>
+
+    <!-- PAGE 9: CONCLUSION -->
+    <div class="page page-break">
+        <h2>10. Conclusion</h2>
+        <p>ATLAS addresses the core challenges of event management by providing a centralized, intuitive, and visually polished platform. It demonstrates a production-quality approach to managing the full lifecycle of events.</p>
+        
+        <div class="footer">
+            <p>Generated by Antigravity AI Engine v4.6</p>
+            <p>© 2026 ATLAS Management Systems</p>
+        </div>
+    </div>
+
+</body>
+</html>
