@@ -1,154 +1,53 @@
-# ATLAS
+# ATLAS — Automated Task & Logistics Assignment System
 
-> **ATLAS** is a modern Android application built to simplify event organization and volunteer management. It provides organizers with a centralized platform to create events, manage departments, assign tasks, monitor volunteer activity, and track progress through an intuitive interface.
+## 📌 Description
 
----
+ATLAS is an Android app built to replace the fragmented group-messaging workflows (WhatsApp threads, verbal instructions, sticky notes) that event organizers and volunteers typically rely on. It centralizes task assignment and logistics coordination in one place, so organizers can assign work and volunteers can see exactly what's expected of them.
 
-## Features
+## 🛠️ Features
 
-* Event management dashboard
-* Volunteer and organizer roles
-* Department-wise event organization
-* Task assignment and progress tracking
-* Activity log for event updates
-* Event details and status monitoring
-* Modern Jetpack Compose UI
-* Local data persistence using Room Database
-* Navigation using Navigation Compose
-* MVVM-inspired architecture with Repository pattern
+- **Centralized task assignment** — organizers create and assign tasks instead of coordinating over scattered chat threads.
+- **Role-based flows** — organizers and volunteers see different views and actions appropriate to their role.
+- **Event/task detail screens** — clear drill-down views for individual events and tasks.
+- **Activity logs** — a visible history of actions taken, useful for accountability during live events.
+- **Authentication** — role-aware login so the right person sees the right dashboard.
+- **Offline-friendly local storage** — Room persists data locally, with Firebase handling backend sync.
 
----
+## 🧱 Tech Stack
 
-## Tech Stack
+Kotlin · Jetpack Compose (Material 3) · MVVM · Room · Firebase
 
-| Category              | Technology                |
-| --------------------- | ------------------------- |
-| Language              | Kotlin                    |
-| UI                    | Jetpack Compose           |
-| Architecture          | MVVM + Repository Pattern |
-| Database              | Room                      |
-| Navigation            | Navigation Compose        |
-| State Management      | ViewModel                 |
-| Dependency Management | Gradle                    |
+## ⚙️ Architecture
 
----
+- **UI layer** — Jetpack Compose screens following Material 3 design guidelines.
+- **MVVM** — ViewModels expose UI state to Compose screens and handle business logic, keeping screens declarative and testable.
+- **Room** — local database for persisting tasks, events, and activity logs on-device.
+- **Firebase** — backend sync layer for keeping organizer and volunteer devices up to date with the latest task/event state.
 
-## Project Structure
+## 🚀 Usage
 
-```text
-app
-│
-├── data
-│   ├── AtlasRepository.kt
-│   ├── Models.kt
-│   ├── SampleData.kt
-│   └── db
-│       ├── AtlasDatabase.kt
-│       ├── Dao.kt
-│       └── Entities.kt
-│
-├── navigation
-│   └── AppNavGraph.kt
-│
-├── ui
-│   ├── components
-│   ├── screens
-│   └── theme
-│
-├── viewmodel
-│   └── AtlasViewModel.kt
-│
-├── MainActivity.kt
-└── AtlasApplication.kt
-```
-
----
-
-## Architecture
-
-ATLAS follows a clean separation of responsibilities:
-
-```text
-UI (Jetpack Compose)
-        │
-        ▼
-ViewModel
-        │
-        ▼
-Repository
-        │
-        ▼
-Room Database
-```
-
-* **UI** renders the application screens and collects user input.
-* **ViewModel** manages UI state and business logic.
-* **Repository** acts as the single source of truth for application data.
-* **Room Database** stores application data locally.
-
----
-
-## Current Modules
-
-* Authentication
-* Home Dashboard
-* Event Details
-* Activity Log
-* Profile
-* Role Selection
-* Reusable UI Components
-* Local Database Layer
-
----
-
-## Getting Started
-
-### Clone the repository
+> Adjust the steps below to match your actual project structure and Firebase config.
 
 ```bash
+# 1. Clone the repo
 git clone https://github.com/HSR-009/ATLAS.git
+cd ATLAS
+
+# 2. Open in Android Studio
+#    File > Open > select the ATLAS project folder
+
+# 3. Add your own Firebase config
+#    Place your google-services.json in the app/ module directory
+#    (see Firebase console > Project settings > Your apps)
+
+# 4. Build and run
+#    Select a device/emulator and hit Run in Android Studio
 ```
 
-### Open the project
+## 📸 Demo Link 
 
-1. Open Android Studio.
-2. Select **Open**.
-3. Choose the cloned project.
-4. Allow Gradle Sync to complete.
-5. Run the application on an emulator or Android device.
+https://drive.google.com/file/d/1_BM7yYX8_ria0mpg7qiKp0-WzKc2W0Tb/view?usp=drive_link
 
----
+## 🔒 Notes
 
-## Future Improvements
-
-* Firebase Authentication
-* Cloud synchronization
-* Push notifications
-* QR code check-in for volunteers
-* Analytics dashboard
-* Real-time event updates
-* Offline-first synchronization
-* Dark mode customization
-* Admin dashboard enhancements
-
----
-
-## Learning Objectives
-
-This project was developed to strengthen practical Android development skills, including:
-
-* Modern Android architecture
-* Jetpack Compose UI development
-* Room Database integration
-* State management with ViewModel
-* Navigation between Compose screens
-* Building scalable and maintainable Android applications
-
----
-
-## Author
-
-**Harshraj Singh Rao**
-
-GitHub: https://github.com/HSR-009
-
+This is a portfolio/learning project. Firebase security rules and role verification should be reviewed and hardened before any real deployment beyond personal/demo use.
