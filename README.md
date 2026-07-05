@@ -20,7 +20,6 @@ Kotlin · Jetpack Compose (Material 3) · MVVM · Room
 - **Room** — local database for persisting tasks, events, volunteers, and activity logs on-device.
 
 ## 🚀 Usage
-\`\`\`
 # 1. Clone the repo
 git clone https://github.com/HSR-009/ATLAS.git
 cd ATLAS
@@ -30,7 +29,6 @@ cd ATLAS
 
 # 3. Build and run
 #    Select a device/emulator and hit Run in Android Studio
-\`\`\`
 
 ## 📸 Screenshots
 (Yet to upload)
