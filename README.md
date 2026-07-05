@@ -24,7 +24,7 @@ Kotlin · Jetpack Compose (Material 3) · MVVM · Room
 git clone https://github.com/HSR-009/ATLAS.git
 cd ATLAS
 
-*2. Open in Android Studio
+* 2. Open in Android Studio
     File > Open > select the ATLAS project folder
 
 * 3. Build and run
